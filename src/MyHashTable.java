@@ -75,6 +75,20 @@ public class MyHashTable <K, V> {
         }
         throw new NoSuchElementException("key not fuond");
     }
+
+    public K getKey(V value) {
+        for (HashNode<K, V> chain : chainArray) {
+            HashNode<K, V> current = chain;
+            while (current != null) {
+                if (current.value.equals(value)) {
+                    return current.key;
+                }
+                current = current.next;
+            }
+        }
+        throw new NoSuchElementException("Value not found");
+    }
+
     public boolean contains(V value){
         for (HashNode<K, V> chain : chainArray) {
             HashNode<K, V> current = chain;
