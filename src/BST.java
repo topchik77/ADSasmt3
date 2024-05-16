@@ -1,10 +1,10 @@
-import java.util.NoSuchElementException;
+import java.util.*;
 
-public class BST<K extends Comparable<K>, V> {
+public class BST<K extends Comparable<K>, V> implements Iterable<BST<K, V>.Node> {
     private Node root;
     private int size;
 
-    private class Node {
+    public class Node {
         private K key;
         private V value;
         private Node left, right;
@@ -12,6 +12,14 @@ public class BST<K extends Comparable<K>, V> {
         public Node(K key, V value) {
             this.key = key;
             this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
         }
     }
 
@@ -74,31 +82,16 @@ public class BST<K extends Comparable<K>, V> {
         return x;
     }
 
-    public Iterable<K> iterator() {
-        return new InOrderIterator();
+    public Iterator<Node> iterator() {
+        List<Node> nodeList = new ArrayList<>();
+        inOrderTraversal(root, nodeList);
+        return nodeList.iterator();
     }
 
-    private class InOrderIterator implements Iterator<K> {
-        private Node current;
-        private Stack<Node> stack;
-
-        public InOrderIterator() {
-            stack = new Stack<>();
-            current = root;
-        }
-
-        public boolean hasNext() {
-            return !stack.isEmpty() || current != null;
-        }
-
-        public K next() {
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-            Node node = stack.pop();
-            current = node.right;
-            return node.key;
-        }
+    private void inOrderTraversal(Node x, List<Node> nodeList) {
+        if (x == null) return;
+        inOrderTraversal(x.left, nodeList);
+        nodeList.add(x);
+        inOrderTraversal(x.right, nodeList);
     }
 }

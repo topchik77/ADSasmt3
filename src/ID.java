@@ -22,6 +22,13 @@ public class ID implements Comparable<ID> {
     public void setSurname(String Surname) {
         this.Surname = Surname;
     }
+
+    @Override
+    public int compareTo(ID o) {
+        int lastNameComparison = this.Surname.compareTo(o.Surname);
+        return (lastNameComparison != 0) ? lastNameComparison : this.Name.compareTo(o.Name);
+    }
+
     @Override
     public String toString() {
         return Name + " " + Surname;

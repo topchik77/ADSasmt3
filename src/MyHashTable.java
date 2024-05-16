@@ -87,9 +87,6 @@ public class MyHashTable <K, V> {
         }
         return false;
     }
-    public K getKey(V value){
-        return ;
-    }
     public void printBucketSize() {
         for (int i=0; i < chainArray.length; i++) {
             int count = 0;
